@@ -14,8 +14,9 @@ export default function OrderHistoryPage({ user, setUser }) {
   useEffect(function () {
     async function getOrders() {
       const orders = await ordersAPI.getAllForUser();
-      setOrders(orders);
-      setSelectedOrder(orders[0]);
+      // setOrders(orders);
+      console.log(orders)
+      // setSelectedOrder(orders[0]);
     }
     getOrders();
   }, []);

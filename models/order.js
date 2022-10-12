@@ -15,6 +15,7 @@ const lineItemSchema = new Schema({
 
 // Be sure NOT to use an arrow function for the callback
 lineItemSchema.virtual('extPrice').get(function () {
+  console.log(this.item)
   return this.qty * this.item.price;
 });
 
