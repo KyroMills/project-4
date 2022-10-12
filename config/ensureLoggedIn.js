@@ -1,6 +1,7 @@
 module.exports = function (req, res, next) {
-    // 401 is Unauthorized
-    if (!req.user) return res.status(401).json('Unauthorized');
-    // the next URL
-    next();
-}
+  // Send back status code 401 - 'Unathorized'
+  // if not logged in
+  if (!req.user) return res.status(401).json('Unauthorized');
+  // everything is cool
+  next();
+};
