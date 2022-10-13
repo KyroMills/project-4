@@ -20,7 +20,7 @@ const Item = require('./models/item');
   await Item.deleteMany({});
   const items = await Item.create([
     { name: 'Mclaren 720s', emoji: '', category: categories[0], price: 5.95 },
-    { name: 'Mclaren 762LT', emoji: '', category: categories[0], price: 6.95 },
+    { name: 'Mclaren 765LT', emoji: '', category: categories[0], price: 6.95 },
     { name: 'Lamborghini Huracan', emoji: '', category: categories[0], price: 3.95 },
     { name: 'Crab Plate', emoji: '', category: categories[1], price: 14.95 },
     { name: 'Fried Shrimp', emoji: '', category: categories[1], price: 13.95 },

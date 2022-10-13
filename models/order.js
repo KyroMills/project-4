@@ -5,7 +5,7 @@ const itemSchema = require('./itemSchema');
 const lineItemSchema = new Schema({
   // Set qty to 1 when new item pushed into lineItems
   qty: { type: Number, default: 1 },
-  item: itemSchema
+  item: { type: Schema.Types.ObjectId, ref: 'ItemSchema', required: true }
 }, {
   timestamps: true,
   // // Include the extPrice virtual property when doc is
@@ -15,8 +15,7 @@ const lineItemSchema = new Schema({
 
 // Be sure NOT to use an arrow function for the callback
 lineItemSchema.virtual('extPrice').get(function () {
-  console.log(this.item)
-  return this.qty * this.item.price;
+  return this.qty * this.item.price
 });
 
 const orderSchema = new Schema({
