@@ -1,49 +1,61 @@
 const mongoose = require('mongoose');
+// Schema shortcut
 const Schema = mongoose.Schema;
-const itemSchema = require('./itemSchema');
+
+const itemSchema = require('./itemSchema')
+
 
 const lineItemSchema = new Schema({
   // Set qty to 1 when new item pushed into lineItems
   qty: { type: Number, default: 1 },
-  item: { type: Schema.Types.ObjectId, ref: 'ItemSchema', required: true }
+  item: itemSchema,
+  // item: { type: Schema.Types.ObjectId, ref: 'ItemSchema', required: true },
 }, {
   timestamps: true,
-  // // Include the extPrice virtual property when doc is
-  // // "sent over the wire" (serialized into JSON)
+  // If you want virtual field to be displayed on client-side, set virtuals: true for toJSON in schema options below.
+  // Mongoose will now invoke all these virtual properties and include their values when the document is either printed or sent.
   toJSON: { virtuals: true }
 });
 
-// Be sure NOT to use an arrow function for the callback
 lineItemSchema.virtual('extPrice').get(function () {
-  return this.qty * this.item.price
-});
+  // 'this' is bound to the lineItem subdocument
+  return this.qty * this.item.price;
+})
 
 const orderSchema = new Schema({
   // An order belongs to a user
-  user: { type: Schema.Types.ObjectId, ref: 'User' },
+  // The type variable is holding a foreign ID of a given document
+  // In this case, it will be the user's document.id
+  // The ref option is what tells Mongoose which model to use during population, in our case the User model. All _ids we store here must be document _ids from the User model.
+  user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  // lineItems is going to be an array of lineItemSchema
+  // Haven't written lineItemSchema yet.
+  // This is how we do embedding.
   lineItems: [lineItemSchema],
+  // A user's unpaid order is their "cart"
   isPaid: { type: Boolean, default: false },
 }, {
+  // Timestamp for an order
   timestamps: true,
   toJSON: { virtuals: true }
-});
+})
 
 orderSchema.virtual('orderTotal').get(function () {
   return this.lineItems.reduce((total, item) => total + item.extPrice, 0);
-});
+})
 
 orderSchema.virtual('totalQty').get(function () {
   return this.lineItems.reduce((total, item) => total + item.qty, 0);
-});
+})
 
 orderSchema.virtual('orderId').get(function () {
   return this.id.slice(-6).toUpperCase();
-});
+})
 
 // statics are callable on the model, not an instance (document)
-orderSchema.statics.getCart = async function (userId) {
+orderSchema.statics.getCart = function (userId) {
   // 'this' is bound to the model (don't use an arrow function)
-  // return the promise that resolves to a cart (unpaid order)
+  // return the promise that resolves to a cart (the user's unpaid order)
   return this.findOneAndUpdate(
     // query
     { user: userId, isPaid: false },
@@ -53,6 +65,8 @@ orderSchema.statics.getCart = async function (userId) {
     { upsert: true, new: true }
   );
 };
+
+// models/order.js
 
 // Instance method for adding an item to a cart (unpaid order)
 orderSchema.methods.addItemToCart = async function (itemId) {
@@ -73,7 +87,7 @@ orderSchema.methods.addItemToCart = async function (itemId) {
 };
 
 // Instance method to set an item's qty in the cart (will add item if does not exist)
-orderSchema.methods.setItemQty = async function (itemId, newQty) {
+orderSchema.methods.setItemQty = function (itemId, newQty) {
   // this keyword is bound to the cart (order doc)
   const cart = this;
   // Find the line item in the cart for the menu item
