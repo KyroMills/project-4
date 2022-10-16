@@ -12,6 +12,7 @@ module.exports = {
 async function history(req, res) {
   // Get history of orders
   const history = await Order.find({ user: req.user._id, isPaid: true })
+  .sort('-updatedAt').exec();
   console.log(history);
   res.json(history)
 }
