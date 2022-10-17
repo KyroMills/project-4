@@ -11,7 +11,7 @@ export default function OrderList({ orders }) {
 
   return (
     <main>
-      <h1>Coming Soon...</h1>
+      <h1>Order History</h1>
       {orderListItems}
     </main>
   )

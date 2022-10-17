@@ -9,3 +9,8 @@
   padding: 3vmin;
   overflow-y: scroll;
 }
+
+h1 {
+  text-align: center;
+  margin: 0 auto;
+}
