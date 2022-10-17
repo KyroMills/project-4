@@ -28,3 +28,17 @@ A MERN stack application that allows the user to rent a variety of cars for diff
   <li> Clean up the css and make it look a lot better</li>
   <li> Creating a real logo and home page </li>
   <li> Adding the imagin api to get car images </li>
+</ul>
+ 
+ # Wins
+<ul>
+  <li> Creating a fully functioning project!
+  <li> Getting a better understanding of the MERN stack even though I still get very lost in my files
+  <li> Implementing most of the things I wanted to use
+</ul>
+
+# Hurdles
+<ul>
+  <li> Attempting to fetch an api and understanding how they work
+  <li> The entire project itself was very difficult trying to keep up with everything
+</ul>
