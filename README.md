@@ -27,3 +27,4 @@ A MERN stack application that allows the user to rent a variety of cars for diff
   <li> Adding the stripe api to implement a "checkout" page to pay for the car</li>
   <li> Clean up the css and make it look a lot better</li>
   <li> Creating a real logo and home page </li>
+  <li> Adding the imagin api to get car images </li>
