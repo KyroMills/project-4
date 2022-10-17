@@ -42,3 +42,14 @@ A MERN stack application that allows the user to rent a variety of cars for diff
   <li> Attempting to fetch an api and understanding how they work
   <li> The entire project itself was very difficult trying to keep up with everything
 </ul>
+
+# Technologies Used
+<ul>
+  <li> HTML </li>
+  <li> CSS </li>
+  <li> Javascript </li>
+  <li> React </li>
+  <li> Node </li>
+  <li> Express </li>
+  <li> MongoDB </li>
+  <li> Github </li>
